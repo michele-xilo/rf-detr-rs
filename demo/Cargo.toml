@@ -1,0 +1,26 @@
+[package]
+name = "demo"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "MIT OR Apache-2.0"
+description = "Live camera demo for rf-detr"
+
+[[bin]]
+name = "camera-objects"
+path = "src/bin/camera_objects.rs"
+
+[dependencies]
+rf-detr = { path = ".." }
+anyhow = "1.0.100"
+eframe = "0.32.3"
+flume = "0.11"
+egui = "0.32.3"
+nokhwa = { version = "^0.10.9", features = [
+  "input-native",
+  "output-threaded",
+  "output-wgpu",
+] }
+image = "0.25.8"
+tracing = "0.1.41"
+tracing-subscriber = "0.3.20"

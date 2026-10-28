@@ -1,0 +1,75 @@
+[package]
+name = "rf-detr"
+description = "RF-DETR object detection and instance segmentation in Rust, on ONNX Runtime."
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.91.0"
+publish = false
+
+[dependencies]
+ab_glyph = "0.2"
+anyhow = "1.0"
+image = "0.25"
+imageproc = "0.25"
+ndarray = "0.17"
+ort = { version = "=2.0.0-rc.12", features = ["ndarray"] }
+rustc-hash = "2.1"
+serde = { version = "1.0", features = ["derive"], optional = true }
+tracing = "0.1"
+
+[target.'cfg(all(target_vendor = "apple", target_arch = "aarch64"))'.dependencies]
+ort = { version = "=2.0.0-rc.12", features = ["coreml"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+ort = { version = "=2.0.0-rc.12", features = ["directml", "cuda"] }
+
+[target.'cfg(all(target_os = "linux", target_arch = "x86_64"))'.dependencies]
+ort = { version = "=2.0.0-rc.12", features = ["cuda"] }
+
+[features]
+default = []
+serde = ["dep:serde"]
+
+[dev-dependencies]
+approx = "0.5"
+criterion = "0.5"
+parameterized = "2.0"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+[[example]]
+name = "image"
+path = "examples/image.rs"
+
+[[example]]
+name = "ep_bench"
+path = "examples/ep_bench.rs"
+
+[[bench]]
+name = "rf_detr_benchmarks"
+harness = false
+
+[workspace]
+members = [".", "demo"]
+default-members = ["."]
+
+[profile.release]
+# See https://nnethercote.github.io/perf-book/build-configuration.html
+codegen-units = 1
+lto = "fat"
+opt-level = 3
+panic = "abort"
+strip = true
+
+[profile.dev]
+opt-level = 3  # Enable some optimizations in dev mode
+
+[profile.dev.package."*"]
+opt-level = 3  # Fully optimize dependencies even in dev mode
+
+[profile.ci]
+inherits = "dev"
+opt-level = 0
+
+[profile.ci.package."*"]
+opt-level = 0
