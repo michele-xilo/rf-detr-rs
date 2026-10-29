@@ -11,6 +11,12 @@ available (CUDA, CoreML, DirectML).
   smooths confidences.
 - An egui live camera demo.
 
+<p align="center">
+  <img src="assets/readme/demo.webp" alt="RF-DETR-Seg segmenting a person, laptop, vase and potted plant in a kitchen video" width="640">
+  <br>
+  <sub>Video by <a href="https://www.pexels.com/video/woman-dancing-in-front-of-a-laptop-5974518/">Katrin Bolovtsova</a> on Pexels.</sub>
+</p>
+
 ## Quick start
 
 The ONNX models are not in git. They live on Hugging Face at
