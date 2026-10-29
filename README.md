@@ -11,6 +11,25 @@ available (CUDA, CoreML, DirectML).
   smooths confidences.
 - An egui live camera demo.
 
+## Quick start
+
+The ONNX models are not in git. They live on Hugging Face at
+[michele-xilo/rf-detr-rs](https://huggingface.co/michele-xilo/rf-detr-rs); pull them into `models/` once,
+before running the demos, the examples or `just test-models`:
+
+```bash
+uv tool install huggingface_hub        # installs the `hf` CLI
+hf auth login                          # the model repo is private for now
+just get-models                        # downloads into models/
+```
+
+Then run a demo:
+
+```bash
+just camera-objects                    # live camera demo
+just example-image path/to/photo.jpg   # one image, writes assets/outputs/
+```
+
 ## Usage
 
 ```toml
